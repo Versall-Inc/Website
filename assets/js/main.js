@@ -1,7 +1,7 @@
 /* Versall homepage interactions
    - live noisy gradient (WebGL) in the hero, bends toward the cursor
    - frosted lens following the cursor in the hero
-   - tilt + highlight on venture cards
+   - partner logos fill with a moving gradient that follows the cursor
    - statement text that fills in as you scroll
    - compact header after the hero
    Everything degrades to a static page without JS or with reduced motion. */
@@ -123,7 +123,7 @@ void main(){
   const heroCanvas = document.querySelector('.hero-gl');
   if (heroCanvas) {
     gradient(heroCanvas, {
-      colors: ['#1C3FF5', '#4AA6FF', '#C3B8FF', '#EAE6FF'], // electric blue, sky, lavender, mist
+      colors: ['#1C3FF5', '#4AA6FF', '#93A7FF', '#B8B0FF'], // electric blue, sky, jordy, lavender (kept deep enough for white type)
       scale: 1.0, grain: .11, speed: 1, seed: 3
     });
   }
@@ -140,20 +140,13 @@ void main(){
     hero.addEventListener('pointerleave', () => lens.classList.remove('on'));
   }
 
-  /* ---------- Card tilt ---------- */
+  /* ---------- Partner logos: gradient follows the cursor ---------- */
   if (fine && !reduce) {
-    document.querySelectorAll('[data-tilt]').forEach(card => {
-      card.addEventListener('pointermove', e => {
-        const r = card.getBoundingClientRect();
-        const x = (e.clientX - r.left) / r.width, y = (e.clientY - r.top) / r.height;
-        card.style.setProperty('--ry', ((x - .5) * 10).toFixed(2) + 'deg');
-        card.style.setProperty('--rx', ((.5 - y) * 8).toFixed(2) + 'deg');
-        card.style.setProperty('--mx', (x * 100).toFixed(1) + '%');
-        card.style.setProperty('--my', (y * 100).toFixed(1) + '%');
-      });
-      card.addEventListener('pointerleave', () => {
-        card.style.setProperty('--rx', '0deg');
-        card.style.setProperty('--ry', '0deg');
+    document.querySelectorAll('.plogo').forEach(el => {
+      el.addEventListener('pointermove', e => {
+        const r = el.getBoundingClientRect();
+        el.style.setProperty('--px', ((e.clientX - r.left) / r.width * 100).toFixed(1) + '%');
+        el.style.setProperty('--py', ((e.clientY - r.top) / r.height * 100).toFixed(1) + '%');
       });
     });
   }

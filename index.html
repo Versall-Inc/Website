@@ -17,6 +17,7 @@
   <link rel="stylesheet" href="assets/css/styles.css">
 </head>
 <body>
+  <a class="skip" href="#content">Skip to content</a>
   <!-- Logo sprite: vectors exported from the Versall Figma file -->
   <svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
     <symbol id="logo-mark" viewBox="0 0 87 85">
@@ -56,7 +57,7 @@
         </nav>
         <a class="pill-glass" href="https://www.linkedin.com/company/versall" target="_blank" rel="noopener">Get in touch</a>
       </header>
-      <div class="hero-body">
+      <div class="hero-body" id="content" tabindex="-1">
         <p class="eyebrow">Versall · Innovation company · Est. 2023</p>
         <h1>Frontier ideas, built into products.</h1>
         <div class="hero-foot">
@@ -88,33 +89,33 @@
         <h2>Ventures</h2>
         <p>Every Versall venture starts with a problem an industry has learned to live with. Then we build the product that ends it.</p>
       </div>
-      <div class="cards">
-        <article class="card" data-tilt>
-          <div class="art grain v-ic"><i class="motif"></i><span class="chip">Shipped</span></div>
-          <div class="card-body">
-            <p class="field">AI-native learning</p>
-            <h3>IntelliCourse</h3>
-            <p>Generates courses and adapts every learning path as the learner progresses, so static content becomes something that responds.</p>
+      <div class="ventures">
+        <article class="venture venture-feature">
+          <div class="v-stage st-pave grain"><img class="v-logo" src="assets/img/ventures/pave.svg" alt="" width="362" height="93"></div>
+          <div class="v-body">
+            <p class="v-meta"><span class="status live"><i class="live-dot" aria-hidden="true"></i>Now building</span><span class="v-field">Neurotech for pets</span></p>
+            <h3 class="sr-only">Pave</h3>
+            <p class="v-desc">A non-invasive EEG wearable. Machine learning turns a pet's neural signals into clear insight on mood and health.</p>
             <!-- Case study link, enable when the page exists:
-            <a class="card-link" href="ventures/intellicourse.html">Read the case study →</a> -->
+            <a class="card-link" href="ventures/pave.html">Read the case study →</a> -->
           </div>
         </article>
-        <article class="card" data-tilt>
-          <div class="art grain v-ovi"><i class="motif"></i><span class="chip">Shipped</span></div>
-          <div class="card-body">
-            <p class="field">Spatial AI for skilled trades</p>
-            <h3>OVI</h3>
-            <p>Conversational, visual AI guidance for tradespeople and industrial teams, delivered through AR glasses right where the work happens.</p>
+        <article class="venture">
+          <div class="v-stage st-ic grain"><img class="v-logo" src="assets/img/ventures/intellicourse.svg" alt="" width="465" height="60"></div>
+          <div class="v-body">
+            <p class="v-meta"><span class="status">Shipped</span><span class="v-field">AI-native learning</span></p>
+            <h3 class="sr-only">IntelliCourse</h3>
+            <p class="v-desc">Generates courses and adapts every learning path as the learner progresses, so static content becomes something that responds.</p>
+            <!-- <a class="card-link" href="ventures/intellicourse.html">Read the case study →</a> -->
+          </div>
+        </article>
+        <article class="venture">
+          <div class="v-stage st-ovi grain"><img class="v-logo v-logo-ovi" src="assets/img/ventures/ovi.svg" alt="" width="724" height="271"></div>
+          <div class="v-body">
+            <p class="v-meta"><span class="status">Shipped</span><span class="v-field">Spatial AI for skilled trades</span></p>
+            <h3 class="sr-only">OVI</h3>
+            <p class="v-desc">Conversational, visual AI guidance for tradespeople and industrial teams, delivered through AR glasses right where the work happens.</p>
             <!-- <a class="card-link" href="ventures/ovi.html">Read the case study →</a> -->
-          </div>
-        </article>
-        <article class="card" data-tilt>
-          <div class="art grain v-pave"><i class="motif"></i><span class="chip"><i class="live-dot"></i>Now building</span></div>
-          <div class="card-body">
-            <p class="field">Neurotech for pets</p>
-            <h3>Pave</h3>
-            <p>A non-invasive EEG wearable. Machine learning turns a pet's neural signals into clear insight on mood and health.</p>
-            <!-- <a class="card-link" href="ventures/pave.html">Read the case study →</a> -->
           </div>
         </article>
       </div>
@@ -137,13 +138,36 @@
         <p>Institutions and programs that have supported, hosted or recognized our work.</p>
       </div>
       <ul class="logos">
-        <li><img src="assets/img/partners/mastercard-foundation.png" alt="Mastercard Foundation" loading="lazy" width="500" height="500"></li>
-        <li><img src="assets/img/partners/wef-c4ir-rwanda.png" alt="World Economic Forum, Rwanda Centre for the Fourth Industrial Revolution" loading="lazy" width="500" height="500"></li>
-        <li><img src="assets/img/partners/global-ai-summit-africa.png" alt="Global AI Summit on Africa 2025" loading="lazy" width="500" height="500"></li>
-        <li><img src="assets/img/partners/google-developer-student-clubs.png" alt="Google Developer Student Clubs" loading="lazy" width="500" height="500"></li>
-        <li><img src="assets/img/partners/ocad-university.png" alt="OCAD University" loading="lazy" width="500" height="500"></li>
-        <li><img src="assets/img/partners/conestoga.png" alt="Conestoga College" loading="lazy" width="500" height="500"></li>
-        <li><img src="assets/img/partners/ux-design-awards-2025.png" alt="UX Design Awards, New Talent Award 2025" loading="lazy" width="500" height="500"></li>
+        <li class="plogo" style="--h:94px;--r:2552/2421">
+          <img src="assets/img/partners/mastercard-foundation.svg" alt="Mastercard Foundation" width="2552" height="2421" loading="lazy">
+          <span class="flow" style="-webkit-mask-image:url(assets/img/partners/mastercard-foundation.svg);mask-image:url(assets/img/partners/mastercard-foundation.svg)" aria-hidden="true"></span>
+          <span class="shade" style="-webkit-mask-image:url(assets/img/partners/mastercard-foundation-shade.svg);mask-image:url(assets/img/partners/mastercard-foundation-shade.svg)" aria-hidden="true"></span>
+        </li>
+        <li class="plogo" style="--h:52px;--r:2881/743">
+          <img src="assets/img/partners/wef-c4ir-rwanda.svg" alt="World Economic Forum, Rwanda Centre for the Fourth Industrial Revolution" width="2881" height="743" loading="lazy">
+          <span class="flow" style="-webkit-mask-image:url(assets/img/partners/wef-c4ir-rwanda.svg);mask-image:url(assets/img/partners/wef-c4ir-rwanda.svg)" aria-hidden="true"></span>
+        </li>
+        <li class="plogo" style="--h:84px;--r:2671/1907">
+          <img src="assets/img/partners/global-ai-summit-africa.svg" alt="Global AI Summit on Africa 2025" width="2671" height="1907" loading="lazy">
+          <span class="flow" style="-webkit-mask-image:url(assets/img/partners/global-ai-summit-africa.svg);mask-image:url(assets/img/partners/global-ai-summit-africa.svg)" aria-hidden="true"></span>
+        </li>
+        <li class="plogo" style="--h:60px;--r:2500/965">
+          <img src="assets/img/partners/gdsc.svg" alt="Google Developer Student Clubs" width="2500" height="965" loading="lazy">
+          <span class="flow" style="-webkit-mask-image:url(assets/img/partners/gdsc.svg);mask-image:url(assets/img/partners/gdsc.svg)" aria-hidden="true"></span>
+          <span class="shade" style="-webkit-mask-image:url(assets/img/partners/gdsc-shade.svg);mask-image:url(assets/img/partners/gdsc-shade.svg)" aria-hidden="true"></span>
+        </li>
+        <li class="plogo" style="--h:88px;--r:2104/1754">
+          <img src="assets/img/partners/ocad.svg" alt="OCAD University" width="2104" height="1754" loading="lazy">
+          <span class="flow" style="-webkit-mask-image:url(assets/img/partners/ocad.svg);mask-image:url(assets/img/partners/ocad.svg)" aria-hidden="true"></span>
+        </li>
+        <li class="plogo" style="--h:86px;--r:2500/1956">
+          <img src="assets/img/partners/conestoga.svg" alt="Conestoga College" width="2500" height="1956" loading="lazy">
+          <span class="flow" style="-webkit-mask-image:url(assets/img/partners/conestoga.svg);mask-image:url(assets/img/partners/conestoga.svg)" aria-hidden="true"></span>
+        </li>
+        <li class="plogo" style="--h:114px;--r:1180/2036">
+          <img src="assets/img/partners/ux-design-awards.svg" alt="UX Design Awards, New Talent Award 2025" width="1180" height="2036" loading="lazy">
+          <span class="flow" style="-webkit-mask-image:url(assets/img/partners/ux-design-awards.svg);mask-image:url(assets/img/partners/ux-design-awards.svg)" aria-hidden="true"></span>
+        </li>
       </ul>
     </section>
 
@@ -151,7 +175,7 @@
     <section class="section wrap" id="contact">
       <div class="cta grain">
         <p class="eyebrow">For investors and partners</p>
-        <h2>Let's build what's next, together.</h2>
+        <h2><span class="grad-text">Let's build what's next, together.</span></h2>
         <p>We work with investors and partners who want to back frontier products early. Message the team on LinkedIn and we'll get back to you.</p>
         <div><a class="btn btn-white" href="https://www.linkedin.com/company/versall" target="_blank" rel="noopener">Message us on LinkedIn <span aria-hidden="true">→</span></a></div>
       </div>
