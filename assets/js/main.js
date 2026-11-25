@@ -1,5 +1,5 @@
 /* Versall homepage interactions
-   - live noisy gradient (WebGL) in the hero, bends toward the cursor
+   - live noisy gradient (WebGL) in the hero, venture cards and contact panel; bends toward the cursor
    - frosted lens following the cursor in the hero
    - partner logos fill with a moving gradient that follows the cursor
    - statement text that fills in as you scroll
@@ -9,21 +9,7 @@
   const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
   const fine = matchMedia('(pointer: fine)').matches;
 
-  /* ---------- Film grain tile ---------- */
-  try {
-    const s = 160, c = document.createElement('canvas');
-    c.width = c.height = s;
-    const x = c.getContext('2d'), im = x.createImageData(s, s);
-    for (let i = 0; i < im.data.length; i += 4) {
-      const v = Math.random() * 255 | 0;
-      im.data[i] = im.data[i + 1] = im.data[i + 2] = v;
-      im.data[i + 3] = 255;
-    }
-    x.putImageData(im, 0, 0);
-    document.documentElement.style.setProperty('--grain', `url(${c.toDataURL()})`);
-  } catch (e) { /* grain is decorative */ }
-
-  /* ---------- Hero gradient (WebGL) ---------- */
+  /* ---------- Live gradient (WebGL): hero, venture cards, contact panel ---------- */
   const VS = 'attribute vec2 p;void main(){gl_Position=vec4(p,0.,1.);}';
   const FS = `precision highp float;
 uniform vec2 uRes;uniform float uTime;uniform vec2 uMouse;uniform float uGrain;uniform float uScale;
@@ -80,7 +66,8 @@ void main(){
     gl.uniform1f(U('uGrain'), cfg.grain);
     gl.uniform1f(U('uScale'), cfg.scale);
 
-    const st = { m: [.55, .45], tm: [.55, .45], t: cfg.seed, vis: false, raf: 0, last: 0 };
+    const home = cfg.home || [.55, .45];
+    const st = { m: home.slice(), tm: home.slice(), t: cfg.seed, vis: false, hover: false, raf: 0, last: 0 };
     const host = canvas.parentElement;
     const draw = () => {
       gl.uniform2f(u.res, canvas.width, canvas.height);
@@ -95,11 +82,14 @@ void main(){
       if (canvas.width !== w || canvas.height !== h) { canvas.width = w; canvas.height = h; gl.viewport(0, 0, w, h); }
       draw();
     };
+    // hoverOnly: still until the pointer is over it, then flows; eases back and stops on leave
+    const moving = () => !cfg.hoverOnly || st.hover;
+    const settled = () => Math.abs(st.m[0] - st.tm[0]) + Math.abs(st.m[1] - st.tm[1]) < .002;
     const loop = now => {
-      if (!st.vis || document.hidden) { st.raf = 0; return; }
+      if (!st.vis || document.hidden || (!moving() && settled())) { st.raf = 0; return; }
       const dt = Math.min(.05, (now - (st.last || now)) / 1000);
       st.last = now;
-      st.t += dt * cfg.speed;
+      if (moving()) st.t += dt * cfg.speed;
       st.m[0] += (st.tm[0] - st.m[0]) * .045;
       st.m[1] += (st.tm[1] - st.m[1]) * .045;
       draw();
@@ -109,11 +99,14 @@ void main(){
       if (reduce) { draw(); return; }
       if (!st.raf && st.vis && !document.hidden) { st.last = 0; st.raf = requestAnimationFrame(loop); }
     };
-    host.addEventListener('pointermove', e => {
+    const pointerHost = cfg.pointerHost || host;
+    pointerHost.addEventListener('pointermove', e => {
       const r = host.getBoundingClientRect();
       st.tm = [(e.clientX - r.left) / r.width, 1 - (e.clientY - r.top) / r.height];
-      if (reduce) { st.m = st.tm.slice(); draw(); }
+      if (reduce) { st.m = st.tm.slice(); draw(); } else kick();
     });
+    pointerHost.addEventListener('pointerenter', () => { st.hover = true; kick(); });
+    pointerHost.addEventListener('pointerleave', () => { st.hover = false; st.tm = home.slice(); kick(); });
     new ResizeObserver(resize).observe(host);
     new IntersectionObserver(es => { st.vis = es[0].isIntersecting; kick(); }).observe(host);
     document.addEventListener('visibilitychange', kick);
@@ -125,6 +118,23 @@ void main(){
     gradient(heroCanvas, {
       colors: ['#1C3FF5', '#4AA6FF', '#93A7FF', '#B8B0FF'], // electric blue, sky, jordy, lavender (kept deep enough for white type)
       scale: 1.0, grain: .11, speed: 1, seed: 3
+    });
+  }
+
+  // Venture cards: each in its own brand colours (set on the canvas), still until hovered
+  document.querySelectorAll('.v-gl').forEach((c, i) => {
+    gradient(c, {
+      colors: c.dataset.colors.split(','),
+      scale: 1.15, grain: .11, speed: 1.4, seed: 11 + i * 7, hoverOnly: true, home: [.5, .35]
+    });
+  });
+
+  // Contact panel: deep navy version of the hero gradient, always drifting, follows the cursor
+  const ctaCanvas = document.querySelector('.cta-gl');
+  if (ctaCanvas) {
+    gradient(ctaCanvas, {
+      colors: ['#070B26', '#0D1856', '#16248A', '#2A48D8'],
+      scale: 1.0, grain: .11, speed: 1, seed: 21, home: [.3, .2]
     });
   }
 
